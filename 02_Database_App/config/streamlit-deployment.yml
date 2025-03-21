@@ -42,4 +42,4 @@ spec:
   - protocol: TCP
     port: 80
     targetPort: 8501
-  type: NodePort  # Use NodePort if LoadBalancer is not available
+  type: NodePort

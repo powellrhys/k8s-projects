@@ -44,4 +44,4 @@ spec:
   - protocol: TCP
     port: 1433
     targetPort: 1433
-  clusterIP: None  # Keep this as None to make it a headless service
+  clusterIP: None

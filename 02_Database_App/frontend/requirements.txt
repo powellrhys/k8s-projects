@@ -1,3 +1,2 @@
-streamlit
-pyodbc
-pandas
+streamlit==1.43.1
+pyodbc==5.2.0
