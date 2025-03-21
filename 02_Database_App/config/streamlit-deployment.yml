@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: streamlit
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: streamlit
+  template:
+    metadata:
+      labels:
+        app: streamlit
+    spec:
+      containers:
+      - name: streamlit
+        image: k8s-simple-database-app:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8501
+        env:
+        - name: DB_SERVER
+          value: "sqlserver-service"
+        - name: DB_NAME
+          value: "mydatabase"
+        - name: DB_USER
+          value: "sa"
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: sqlserver-secret
+              key: password
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: streamlit-service
+spec:
+  selector:
+    app: streamlit
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8501
+  type: NodePort  # Use NodePort if LoadBalancer is not available
